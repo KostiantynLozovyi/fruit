@@ -1,0 +1,14 @@
+.sale {
+    width: 50px;
+    height: 25px;
+    border-top-right-radius: 5px;
+    background-color: red;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+
+.sale_text {
+    text-align: center;
+    color: white;
+}

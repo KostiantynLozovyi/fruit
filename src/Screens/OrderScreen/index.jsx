@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 
 import '../OrderScreen/styles.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 import { BANANA_PRICE, APPLE_PRICE, PAPAYA_PRICE } from '../../constants/index'
 import { removeApples, removeBananas, removePapayas } from '../../redux/actions'
+import FruitOrder from '../../Components/FruitOrder'
 
 
 
@@ -40,51 +41,17 @@ export default function OrderScreen() {
     return (
         <div>
             <div className='link'>
-                <nav>
-                    <Link className='main_order_link' to='/'>Main</Link>
-                </nav>
+                    <NavLink className='main_order_link' to='/'>Main</NavLink>
             </div>
             <div className='span_order'>
                 <span>YOUR ORDER</span>
             </div>
             <div className='ordered'>
-                <div className='ordered_fruits'>
-                    <div>
-                        <span>Banana:{bananas.kilo}(kilo)</span>
-                        <p>
-                            <span>Total Banana's Price :{bananas.sum}</span>
-                        </p>
-                    </div>
-                    <button className='button_remove' onClick={removeBanana}>
-                        Remove 1 kilo
-                    </button>
-                </div>
-                <div className='ordered_fruits'>
-                    <div>
-
-                        <span>Apple:{apples.kilo}(kilo)</span>
-                        <p>
-                            <span>Total Apple's Price : {apples.sum}</span>
-                        </p>
-                    </div>
-                    <button className='button_remove' onClick={removeApple}>
-                        Remove 1 kilo
-                    </button>
-                </div>
-                <div className='ordered_fruits'>
-                    <div>
-
-                        <span>Papaya:{papayas.kilo}(kilo)</span>
-                        <p>
-                            <span>Total Papaya's Price : {papayas.sum}</span>
-                        </p>
-                    </div>
-                    <button className='button_remove' onClick={removePapaya}>
-                        Remove 1 kilo
-                    </button>
-                </div>
+                <FruitOrder onRemove={removeBanana} kilo={bananas.kilo } sum={bananas.sum} title='Banana'/>
+                <FruitOrder onRemove={removeApple} kilo={apples.kilo} sum={apples.sum} title='Apple' />
+                <FruitOrder onRemove={removePapaya} kilo={papayas.kilo} sum={papayas.sum} title='Papaya' />
                 <div>
-                    <span><strong>The Final Price:{totalPrice()}</strong></span>
+                    <span><strong>The Final Price: {totalPrice()}</strong></span>
                 </div>
             </div>
         </div>

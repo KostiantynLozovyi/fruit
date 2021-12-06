@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import '../OrderScreen/styles.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import {  NavLink } from 'react-router-dom'
 
-import { BANANA_PRICE, APPLE_PRICE, PAPAYA_PRICE } from '../../constants/index'
+import { BANANA_PRICE, APPLE_PRICE,  } from '../../constants/index'
 import { removeApples, removeBananas, removePapayas } from '../../redux/actions'
 import FruitOrder from '../../Components/FruitOrder'
 
@@ -18,6 +18,8 @@ export default function OrderScreen() {
     const totalPrice = () => {
         return bananas.sum + apples.sum + papayas.sum
     }
+
+    const totalPriceFruits = totalPrice();
 
     const removeBanana = () => {
         if (bananas.kilo >= 1){
@@ -44,14 +46,14 @@ export default function OrderScreen() {
                     <NavLink className='main_order_link' to='/'>Main</NavLink>
             </div>
             <div className='span_order'>
-                <span>YOUR ORDER</span>
+                 {totalPriceFruits ? <span>YOUR ORDER</span> : <span>EMPTY ORDER</span> }
             </div>
             <div className='ordered'>
-                <FruitOrder onRemove={removeBanana} kilo={bananas.kilo } sum={bananas.sum} title='Banana'/>
-                <FruitOrder onRemove={removeApple} kilo={apples.kilo} sum={apples.sum} title='Apple' />
-                <FruitOrder onRemove={removePapaya} kilo={papayas.kilo} sum={papayas.sum} title='Papaya' />
+                {bananas.kilo ? <FruitOrder onRemove={removeBanana} kilo={bananas.kilo } sum={bananas.sum} title='Banana'/> : null}
+                {apples.kilo ? <FruitOrder onRemove={removeApple} kilo={apples.kilo} sum={apples.sum} title='Apple' /> : null}
+                {papayas.kilo ? <FruitOrder onRemove={removePapaya} kilo={papayas.kilo} sum={papayas.sum} title='Papaya' /> : null}
                 <div>
-                    <span><strong>The Final Price: {totalPrice()}</strong></span>
+                    {totalPriceFruits ? <span><strong>The Final Price: {totalPriceFruits}</strong></span> : null}
                 </div>
             </div>
         </div>
